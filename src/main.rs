@@ -8,9 +8,9 @@ mod day_4;
 mod day_5;
 mod day_6;
 mod day_7;
+mod day_8;
 
 fn main() -> Result<(), Box<dyn Error>> {
-
-    day_7::solve()?;
+    day_8::solve_v2()?;
     Ok(())
 }
