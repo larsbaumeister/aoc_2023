@@ -15,7 +15,7 @@ pub fn solve() -> Result<(), Box<dyn Error>> {
     let green_threshold = 13;
     let blue_threshold = 14;
     let red_threshold = 12;
-
+    
     let mut possible_game_ids: Vec<u32> = vec![];
     let mut sum_of_powers = 0;
     for line in reader.lines() {
