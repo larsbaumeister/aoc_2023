@@ -25,35 +25,17 @@ pub fn solve() -> Result<(), Box<dyn Error>> {
 fn next_value(nums: Vec<i64>) -> i64 {
     let mut diffs = vec![nums];
     while !is_all_zeros(&diffs.last().unwrap()) {
-        let diff = differences(&diffs.last().unwrap());
-        diffs.push(diff);
-    }
-    let mut idx = diffs.len() - 1;
-    diffs.get_mut(idx).unwrap().push(0);
-    
-    idx -= 1;
-    loop {
-        let last_item_in_this;
-        {
-            let this = diffs.get_mut(idx).unwrap();
-            last_item_in_this = *this.last().unwrap();
-        }
-        let last_item_in_prev;        
-        {
-            let prev = diffs.get(idx + 1).unwrap();
-            last_item_in_prev = *prev.last().unwrap();
-        }
-        let new_val = last_item_in_prev + last_item_in_this;
-        {
-            let this = diffs.get_mut(idx).unwrap();
-            this.push(new_val);
-        }
-        if idx == 0 {
-            break;
-        }
-        idx -= 1;
+        diffs.push(differences(&diffs.last().unwrap()));
     }
 
+    diffs.last_mut().unwrap().push(0);
+    
+    for i in (0..diffs.len() - 1).rev() {
+        let last_item_in_this = *diffs[i].last().unwrap();
+        let last_item_in_prev = *diffs[i + 1].last().unwrap();
+        let new_val = last_item_in_prev + last_item_in_this;
+        diffs[i].push(new_val);
+    }
     diffs.get(0).unwrap().last().unwrap().clone()
 }
 
