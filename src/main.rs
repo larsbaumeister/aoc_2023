@@ -38,19 +38,25 @@ struct Args {
     part: u8,
 }
 
+pub trait Solution {
+    fn solve(&self, part: u8) -> Result<(), Box<dyn Error>>;
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
     let args = Args::parse();
-    match args.challenge {
-        Challenge::DAY_1 => day_1::solve()?,
-        Challenge::DAY_2 => day_2::solve()?,
-        Challenge::DAY_3 => day_3::solve()?,
-        Challenge::DAY_4 => day_4::solve()?,
-        Challenge::DAY_5 => day_5::solve()?,
-        Challenge::DAY_6 => day_6::solve()?,
-        Challenge::DAY_7 => day_7::solve()?,
-        Challenge::DAY_8 => day_8::solve()?,
-        Challenge::DAY_9 => day_9::solve()?,   
-    }
+
+    let solution: Box<dyn Solution> = match args.challenge {
+        Challenge::DAY_1 => Box::new(day_1::Day1::new()),
+        Challenge::DAY_2 => Box::new(day_2::Day2::new()),
+        Challenge::DAY_3 => Box::new(day_3::Day3::new()),
+        Challenge::DAY_4 => Box::new(day_4::Day4::new()),
+        Challenge::DAY_5 => Box::new(day_5::Day5::new()),
+        Challenge::DAY_6 => Box::new(day_6::Day6::new()),
+        Challenge::DAY_7 => Box::new(day_7::Day7::new()),
+        Challenge::DAY_8 => Box::new(day_8::Day8::new()),
+        Challenge::DAY_9 => Box::new(day_9::Day9::new()),
+    };
+    solution.solve(args.part)?;
     Ok(())
 }
  
