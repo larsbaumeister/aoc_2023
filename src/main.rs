@@ -11,6 +11,7 @@ mod day_6;
 mod day_7;
 mod day_8;
 mod day_9;
+mod day_10;
 
 #[derive(clap::ValueEnum, Debug, Clone)]
 enum Challenge {
@@ -23,6 +24,7 @@ enum Challenge {
     DAY_7,
     DAY_8,
     DAY_9,
+    DAY_10,
 }
 
 
@@ -55,6 +57,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         Challenge::DAY_7 => Box::new(day_7::Day7::new()),
         Challenge::DAY_8 => Box::new(day_8::Day8::new()),
         Challenge::DAY_9 => Box::new(day_9::Day9::new()),
+        Challenge::DAY_10 => Box::new(day_10::Day10::new()),
     };
     solution.solve(args.part)?;
     Ok(())
