@@ -45,6 +45,7 @@ pub trait Solution {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
+/* 
     let args = Args::parse();
 
     let solution: Box<dyn Solution> = match args.challenge {
@@ -59,7 +60,9 @@ fn main() -> Result<(), Box<dyn Error>> {
         Challenge::DAY_9 => Box::new(day_9::Day9::new()),
         Challenge::DAY_10 => Box::new(day_10::Day10::new()),
     };
-    solution.solve(args.part)?;
+    solution.solve(args.part)?; */
+
+    day_10::Day10::new().solve(1)?;
     Ok(())
 }
  
