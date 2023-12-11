@@ -62,7 +62,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     };
     solution.solve(args.part)?; */
 
-    day_10::Day10::new().solve(1)?;
+    day_10::Day10::new().solve(2)?;
     Ok(())
 }
  

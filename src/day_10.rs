@@ -8,7 +8,7 @@ impl Solution for Day10 {
     fn solve(&self, part: u8) -> Result<(), Box<dyn Error>> {
         match part {
             1 => Day10::solve()?,
-            2 => Day10::solve()?,
+            2 => Day10::solve_v2()?,
             _ => println!("Invalid part specified")
         }
         Ok(())
@@ -25,7 +25,7 @@ impl Day10 {
         let matrix = Day10::parse_matrix(reader)?;
         let (x, y) = Day10::find_start_node(&matrix);
         println!("Start node: ({}, {})", x, y);
-        let mut directions = Day10::possible_directions(&matrix, x, y);
+        let directions = Day10::possible_directions(&matrix, x, y);
         println!("Possible directions: {:?}", directions);
 
         let largest_path = Day10::find_largest_path(&matrix);
@@ -33,6 +33,43 @@ impl Day10 {
         println!("Largest path: {:?}", largest_path.len());
 
         Ok(())
+    }
+
+    fn solve_v2() -> Result<(), Box<dyn Error>> {
+        let reader = BufReader::new(File::open("input/day_10.txt")?);
+        let mut matrix = Day10::parse_matrix(reader)?;
+
+        let start_x = 0;
+        let start_y = 0;
+        let old_char = '.';
+        let new_char = 'I';
+    
+        Day10::flood_fill(&mut matrix, start_x, start_y, old_char, new_char);
+    
+        let tiles = Day10::count_enclosed_tiles(&matrix, old_char);
+        println!("Tiles: {}", tiles);
+        Ok(())
+    }
+
+    fn flood_fill(matrix: &mut Vec<Vec<char>>, x: usize, y: usize, old_char: char, new_char: char) {
+        if x >= matrix.len() || y >= matrix[0].len() {
+            return;
+        }
+    
+        if matrix[x][y] != old_char {
+            return;
+        }
+    
+        matrix[x][y] = new_char;
+    
+        Day10::flood_fill(matrix, x + 1, y, old_char, new_char);
+        Day10::flood_fill(matrix, x - 1, y, old_char, new_char);
+        Day10::flood_fill(matrix, x, y + 1, old_char, new_char);
+        Day10::flood_fill(matrix, x, y - 1, old_char, new_char);
+    }
+    
+    fn count_enclosed_tiles(matrix: &Vec<Vec<char>>, enclosed_char: char) -> usize {
+        matrix.iter().flatten().filter(|&&c| c == enclosed_char).count()
     }
 
     fn find_largest_path(matrix: &Vec<Vec<char>>) -> Vec<(usize, usize)> {
