@@ -113,7 +113,7 @@ impl Day10 {
 
     fn find_start_node(matrix: &Vec<Vec<char>>) -> (usize, usize) {
         for (x, row) in matrix.iter().enumerate() {
-            for (y, col) in row.iter().enumerate() {
+            for (y, _) in row.iter().enumerate() {
                 if Day10::is_start_node(matrix, x, y) {
                     return (x, y);
                 }

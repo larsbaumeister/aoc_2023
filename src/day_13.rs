@@ -1,8 +1,6 @@
-use std::{error::Error, fs, collections::HashSet, path::Path};
+use std::{error::Error, fs, path::Path};
 
-use itertools::Itertools;
-
-use crate::{Solution};
+use crate::Solution;
 
 #[derive(Debug, PartialEq)]
 enum Reflection {

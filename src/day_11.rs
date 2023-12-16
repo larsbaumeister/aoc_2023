@@ -1,4 +1,4 @@
-use std::{error::Error, io::BufReader, fs};
+use std::{error::Error, fs};
 
 use itertools::Itertools;
 

@@ -1,4 +1,3 @@
-use core::num;
 use std::{error::Error, fs::File, io::{BufReader, BufRead}};
 
 use crate::Solution;
